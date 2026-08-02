@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Вариант A — «Тёмный протокол» (ТЗ 10.7.1)
+   Первый экран как приборная панель. Применяется на главной? Нет —
+   по распределению 10.7.4 это лендинг «Программа наблюдения» под платный
+   трафик: там нужен максимальный фокус и там же обязательно предупреждение
+   о противопоказаниях, которое на тёмном фоне размещается без разрушения
+   композиции.
+   ========================================================================== */
+
+.heroA {
+  position: relative;
+  min-height: 88dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+/* Два слоя: радиальный градиент «объём приборного корпуса» + сетка 80 px */
+.heroA__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 82% 8%, #354453 0%, rgba(53, 68, 83, 0) 62%);
+  opacity: .6;
+  pointer-events: none;
+}
+.heroA__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right, #3A4B5C 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(to bottom, #3A4B5C 0 1px, transparent 1px 80px);
+  opacity: .26;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.35) 55%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.35) 55%, transparent 92%);
+}
+
+.heroA__body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-block: var(--s-13) var(--s-11);
+}
+.heroA__title { max-width: 15ch; }  /* крупный заголовок — 20–24 знака в строке */
+.heroA__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-7);
+  margin-top: var(--s-9);
+}
+
+/* Правая карточка — утопленный уровень на slate-800 */
+.specA {
+  background: var(--navy);
+  border: 1px solid rgba(221, 225, 229, .16);
+  border-radius: var(--r-lg);
+  padding: var(--s-8);
+}
+.specA__rows { margin: var(--s-7) 0; }
+.specA__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-5);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid rgba(221, 225, 229, .16);
+}
+.specA__row:first-child { border-top: 1px solid rgba(221, 225, 229, .16); }
+.specA__key { font-size: var(--text-caption); color: var(--smoke); }
+.specA__val {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.heroA__facts { position: relative; padding-bottom: var(--s-9); }
+.heroA__facts .facts-bar { border-top-color: rgba(221, 225, 229, .16); }

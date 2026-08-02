@@ -1,0 +1,95 @@
+/* ==========================================================================
+   EVAMED — фирменные элементы
+   Брендбук, раздел 5: стилизованная «Λ», фирменная точка, диагностическая
+   линия, три типа разделителей, угловые скобки, фирменные формы, паттерн.
+   Правило раздела: элементы усиливают смысл, применяются умеренно.
+   ========================================================================== */
+
+/* ---------- Разделитель 1: диагностическая линия со всплеском ЭКГ ----------
+   Главный фирменный разделитель. Ставится между смысловыми блоками,
+   не чаще одного раза на экран. */
+.sep-ecg {
+  display: block;
+  width: 100%;
+  height: 24px;
+  color: var(--bronze);
+  margin-block: var(--s-9);
+}
+
+/* ---------- Разделитель 2: пунктир из точек ---------- */
+.sep-dots {
+  height: 3px;
+  background-image: radial-gradient(circle, var(--bronze) 1.5px, transparent 1.6px);
+  background-size: 12px 3px;
+  background-repeat: repeat-x;
+  border: 0;
+  margin-block: var(--s-8);
+  opacity: .75;
+}
+
+/* ---------- Разделитель 3: тонкая сплошная ---------- */
+.sep-line { height: 1px; background: var(--rule); border: 0; margin-block: var(--s-8); }
+
+/* ---------- Угловые скобки ----------
+   Оформление блоков, карточек и инфографики. Три цвета по брендбуку. */
+.brackets { position: relative; }
+.brackets::before,
+.brackets::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--bronze);
+  pointer-events: none;
+}
+.brackets::before { top: -6px; left: -6px; border-right: 0; border-bottom: 0; }
+.brackets::after { bottom: -6px; right: -6px; border-left: 0; border-top: 0; }
+.brackets--steel::before, .brackets--steel::after { border-color: var(--steel-line); }
+.brackets--navy::before,  .brackets--navy::after  { border-color: var(--navy); }
+
+/* ---------- Фирменные формы ----------
+   Круг — светло-серый, скруглённый квадрат — графитовый, квадрат — песочный. */
+.shape { display: inline-grid; place-items: center; flex: 0 0 auto; }
+.shape--circle { width: 44px; height: 44px; border-radius: 50%; background: var(--grey-light); color: var(--navy); }
+.shape--rsquare { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--graphite); color: var(--white); }
+.shape--square { width: 44px; height: 44px; border-radius: var(--r-xs); background: var(--sand); color: var(--navy); }
+
+/* ---------- Паттерн: регулярная сетка из мелких точек ----------
+   Деликатное фоновое оформление. Только на акцентных и тёмных секциях. */
+.pattern-dots { position: relative; isolation: isolate; }
+.pattern-dots::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.1px);
+  background-size: 22px 22px;
+  opacity: .10;
+}
+[data-surface="dark"].pattern-dots::before { opacity: .16; }
+
+/* ---------- Иконки ----------
+   Линейный стиль, обводка 1,5, бронзовая точка-акцент внутри символа. */
+.ico {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  color: var(--navy);
+}
+.ico--lg { width: 40px; height: 40px; flex-basis: 40px; }
+[data-surface="dark"] .ico { color: var(--text); }
+
+/* Иконочная навигация по направлениям — брендбук, раздел 7 */
+.dir { gap: var(--s-5); }
+.dir__ico { display: flex; align-items: center; gap: var(--s-5); min-width: 0; }
+
+/* ---------- Стилизованная «Λ» как самостоятельный акцент ----------
+   Используется в надзаголовках и маркерах списков вместо абстрактных значков. */
+.lambda {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.1em;
+  color: var(--bronze);
+}

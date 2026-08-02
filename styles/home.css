@@ -1,0 +1,382 @@
+/* ==========================================================================
+   Главная страница — блоки по ТЗ раздел 8.
+   Порядок поверхностей по 10.6.3: cream-050 → cream-100 → slate-700 →
+   cream-050 → cream-300 → cream-050 → slate-800 (футер).
+   Две секции подряд с одинаковым фоном и ритмом — ошибка.
+   ========================================================================== */
+
+/* ---------- Заголовок секции: надзаголовок + линия ---------- */
+.sec-head { max-width: 62ch; }
+.sec-head .overline { margin-bottom: var(--s-4); }
+.sec-head .h2 { text-wrap: balance; max-width: 22ch; }
+.sec-head p { margin-top: var(--s-5); color: var(--text-secondary); max-width: 58ch; }
+
+/* ---------- Блок 3: три обещания ---------- */
+.promise { border-top: 1px solid var(--rule); padding-top: var(--s-6); }
+.promise__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  color: var(--text-display);
+  margin-bottom: var(--s-4);
+}
+.promise p { color: var(--text-secondary); }
+
+/* ---------- Блок 4: четыре шага. Жетоны — порядок несёт информацию ---------- */
+.steps { counter-reset: step; }
+.step { display: flex; gap: var(--s-5); align-items: flex-start; }
+.step__body { min-width: 0; }
+.step__title { font-weight: 600; color: var(--text-display); margin-bottom: var(--s-2); }
+.step__note { font-size: var(--text-body-sm); color: var(--text-secondary); line-height: 1.6; }
+
+/* ---------- Блок 5: таймлайн года. Главный блок главной ---------- */
+.timeline { display: grid; gap: var(--s-6); }
+.tl-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--s-5);
+  align-items: start;
+  padding-bottom: var(--s-6);
+  border-bottom: 1px solid var(--rule);
+}
+.tl-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.tl-item__title { font-weight: 600; color: var(--text-display); }
+.tl-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  margin-top: var(--s-3);
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+@media (min-width: 768px) {
+  .timeline { grid-template-columns: 1fr 1fr; gap: var(--s-8) var(--s-11); }
+}
+
+/* ---------- Блок 6: три тарифа ---------- */
+.tariffs { display: grid; gap: var(--s-7); align-items: start; }
+@media (min-width: 1024px) { .tariffs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.tariff { display: flex; flex-direction: column; height: 100%; }
+.tariff__badge {
+  display: inline-block;
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: var(--s-4);
+}
+.tariff__name { font-family: var(--font-display); font-size: var(--text-h3); line-height: 1.2; color: var(--text-display); }
+.tariff__for { margin-top: var(--s-3); font-size: var(--text-body-sm); color: var(--text-secondary); }
+.tariff__points {
+  display: flex;
+  align-items: baseline;
+  gap: .45em;
+  margin: var(--s-6) 0 var(--s-5);
+}
+.tariff__points b { font-size: 2rem; font-weight: 500; color: var(--text-display); font-variant-numeric: tabular-nums; }
+.tariff__points span { font-size: var(--text-caption); color: var(--text-secondary); }
+.tariff__list { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-4); }
+/* flex, а не grid: иначе каждый текстовый узел (например сноска) уедет в новую строку */
+.tariff__list li { display: flex; gap: var(--s-4); font-size: var(--text-body-sm); line-height: 1.6; }
+.tariff__list li::before {
+  content: "";
+  flex: 0 0 8px;
+  height: 1px;
+  background: var(--rule-strong);
+  margin-top: .8em;
+}
+.tariff__list sup { font-size: .7em; margin-left: .15em; }
+/* отличия выделяются насыщенностью, а не цветом (ТЗ 10.6.8) */
+.tariff__list li.is-diff { font-weight: 600; color: var(--text-display); }
+.tariff__list li.is-diff::before { background: var(--accent); }
+/* Цена: полная годовая сумма обязательна, разбивка по месяцам — рядом с ней */
+.tariff__cost {
+  display: flex;
+  align-items: baseline;
+  gap: .45em;
+  flex-wrap: wrap;
+  margin-bottom: var(--s-2);
+}
+.tariff__cost .price {
+  font-size: var(--text-price);
+  font-weight: 600;
+  color: var(--text-display);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.tariff__per { font-size: var(--text-body-sm); color: var(--text-secondary); }
+
+.tariff__foot { margin-top: auto; padding-top: var(--s-7); }
+.tariff__foot .caption { margin-bottom: var(--s-5); }
+
+/* На мобильном рекомендуемый первым, не карусель */
+@media (max-width: 1023px) { .tariff--rec { order: -1; } }
+
+/* ---------- Блок 8: сравнение трёх своих форматов ---------- */
+.compare th:first-child, .compare td:first-child { width: 40%; }
+.compare .yes { color: var(--success); font-weight: 600; }
+.compare .no { color: var(--text-muted); }
+/* Липкой шапки у таблицы нет намеренно.
+   Таблица лежит в .table-scroll с overflow-x: auto, а это делает контейнер
+   скроллпортом и по вертикали тоже. Sticky отсчитывается от ближайшего
+   скроллпорта, то есть от самой таблицы, а не от окна: замысел «шапка держится
+   под шапкой сайта» внутри такого контейнера неосуществим, а top: 72px просто
+   сдвигал заголовки вниз на первую строку данных и перекрывал её. */
+
+/* ---------- Блок 9: направления ---------- */
+.dirs { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.dir {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-5);
+  padding: var(--s-6) 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--text);
+  transition: color var(--d-fast) var(--ease-out);
+}
+.dir:hover { color: var(--accent-text); }
+.dir:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.dir__name { font-family: var(--font-display); font-size: var(--text-h3); line-height: 1.2; }
+.dir__meta { font-size: var(--text-caption); color: var(--text-secondary); text-align: right; }
+@media (min-width: 768px) { .dirs { grid-template-columns: 1fr 1fr; column-gap: var(--s-11); } }
+
+/* ---------- Блок 10: почему можно верить ---------- */
+.trust { display: grid; gap: var(--s-7); }
+@media (min-width: 768px) { .trust { grid-template-columns: 1fr 1fr; } }
+.trust__item { display: grid; grid-template-columns: 32px 1fr; gap: var(--s-5); align-items: start; }
+.trust__item b { display: block; color: var(--text-display); margin-bottom: var(--s-2); }
+.trust__item p { font-size: var(--text-body-sm); color: var(--text-secondary); line-height: 1.6; }
+
+/* ---------- Блок 11: карточки врачей ----------
+   Состояние «без фото»: монограмма дисплейной антиквой, не силуэт. */
+.docs-grid { display: grid; gap: var(--s-7); }
+@media (min-width: 560px) { .docs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .docs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.doc { display: flex; flex-direction: column; height: 100%; }
+.doc__portrait {
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  background: var(--sand);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+  color: var(--navy);
+  letter-spacing: .02em;
+  margin-bottom: var(--s-6);
+}
+.doc__name {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  line-height: 1.25;
+  color: var(--text-display);
+  /* запас под две строки: иначе специальности и подписи в ряду не выровняются */
+  min-height: 2.5em;
+}
+.doc__spec {
+  margin-top: var(--s-3);
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.doc__meta {
+  margin-top: var(--s-4);
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.doc__foot {
+  margin-top: auto;
+  padding-top: var(--s-6);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  border-top: 1px solid var(--rule);
+}
+.doc__price { font-weight: 600; color: var(--text-display); font-variant-numeric: tabular-nums; }
+
+/* ---------- Блок 13: отзывы ---------- */
+.reviews { display: grid; gap: var(--s-8); }
+@media (min-width: 768px) { .reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.review { display: flex; flex-direction: column; }
+.review__quote {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--accent-line);
+  margin-bottom: var(--s-4);
+}
+/* Цитата набирается дисплейным курсивом: у Golos курсива нет вовсе,
+   а font-synthesis: none запрещает браузеру его подделывать */
+.review__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: var(--text-display);
+}
+.review__foot {
+  margin-top: auto;
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--rule);
+}
+.review__who { font-weight: 600; color: var(--text-display); }
+.review__what { margin-top: var(--s-2); font-size: var(--text-caption); color: var(--text-muted); }
+
+/* ---------- Блок 7: якорь цены ---------- */
+.anchor { display: grid; gap: var(--s-9); align-items: center; }
+@media (min-width: 1024px) { .anchor { grid-template-columns: 7fr 5fr; gap: var(--s-13); } }
+.anchor__calc { display: grid; gap: 0; }
+.anchor__row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-5);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.anchor__row:first-child { border-top: 1px solid var(--rule); }
+.anchor__row--total { border-bottom: 0; }
+.anchor__key { color: var(--text-secondary); }
+.anchor__val { font-size: var(--text-h4); font-weight: 600; color: var(--text-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.anchor__row--total .anchor__val { color: var(--accent-text); font-size: var(--text-price); }
+
+/* ---------- Блок 12: первый визит — ступень входа ---------- */
+.entry { display: grid; gap: var(--s-9); align-items: center; }
+@media (min-width: 1024px) { .entry { grid-template-columns: 6fr 5fr; gap: var(--s-13); } }
+
+/* ---------- Блок 16: контакты ---------- */
+.contacts { display: grid; gap: var(--s-8); }
+@media (min-width: 1024px) { .contacts { grid-template-columns: 1fr 1fr; gap: var(--s-13); } }
+.contact-row { display: grid; grid-template-columns: 1fr; gap: var(--s-2); padding: var(--s-5) 0; border-bottom: 1px solid var(--rule); }
+.contact-row dt { font-size: var(--text-overline); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-secondary); }
+.contact-row dd { margin: 0; font-size: var(--text-h4); font-weight: 600; color: var(--text-display); }
+.contacts dl { margin: 0; }
+
+/* ---------- Форма ---------- */
+.field { display: grid; gap: var(--s-3); }
+.field label { font-size: var(--text-overline); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-secondary); }
+.field input, .field textarea {
+  height: 48px;
+  padding: 0 var(--s-5);
+  font-family: var(--font-body);
+  font-size: 1rem;                 /* ≥16px, иначе мобильный браузер масштабирует */
+  color: var(--text);
+  background: var(--white);
+  border: 1px solid var(--field-border);
+  border-radius: var(--r-sm);
+}
+.field textarea { height: auto; padding: var(--s-4) var(--s-5); min-height: 96px; resize: vertical; }
+.field input:focus-visible, .field textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-color: var(--navy);
+}
+.consent { display: grid; grid-template-columns: 24px 1fr; gap: var(--s-4); align-items: start; font-size: var(--text-caption); color: var(--text-secondary); line-height: 1.5; }
+/* 24×24 — минимальный размер цели указания по WCAG 2.2 (2.5.8).
+   Исключения для встроенных ссылок на флажок согласия не распространяются. */
+.consent input { width: 24px; height: 24px; margin: 0; accent-color: var(--navy); }
+
+/* ---------- Узкая полоса: корпоративным ---------- */
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding-block: var(--s-8);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---------- Секции с иной поверхностью ---------- */
+.sec-raised { background: var(--surface-raised); }
+.sec-accent { background: var(--surface-accent); }
+.sec-dark { background: var(--navy); }
+.sec-dark .h2,
+.sec-dark .tariff__name { color: var(--text); }
+
+/* ---------- Вынесено из инлайновых стилей при переносе в Next ---------- */
+.facts-title { max-width: 24ch; }
+.facts-grid { margin-top: var(--s-11); }
+.chip__scale { margin-top: var(--s-7); }
+.chip__cta { margin-top: var(--s-8); width: 100%; }
+.chip__link { margin-top: var(--s-5); }
+.facts-bar__link { color: inherit; }
+
+/* ==========================================================================
+   Вынесено из инлайновых стилей при переносе макетов в компоненты.
+   В статических макетах эти значения стояли атрибутом style; в разметке
+   компонентов инлайновые стили не используются — как из-за политики
+   безопасности, так и чтобы отступы правились в одном месте.
+   ========================================================================== */
+
+/* Тело секции под общей шапкой sec-head — единый отступ для всех блоков */
+.sec-body { margin-top: var(--s-11); }
+
+/* Блок 3. Обещания */
+.promises-grid { margin-top: var(--s-11); }
+
+/* Блок 4. Как это работает */
+.steps { margin-top: var(--s-11); }
+
+/* Блок 5. Год в программе */
+.year-scale { margin-top: var(--s-11); max-width: 640px; }
+.timeline { margin-top: var(--s-12); }
+
+/* Блоки 6–7. Тарифы и якорь цены */
+.tariffs-grid { margin-top: var(--s-11); }
+.tariff__cta { width: 100%; }
+.tariff__foot .caption { color: var(--text-secondary); }
+.tariffs-anchor { margin-top: var(--s-14); }
+.anchor__title { margin-top: var(--s-4); color: var(--text); }
+.anchor__note { margin-top: var(--s-5); color: var(--text-secondary); max-width: 54ch; }
+.anchor__link { margin-top: var(--s-7); }
+
+/* Блок 8. Сравнение */
+.compare-scroll { margin-top: var(--s-11); }
+
+/* Блок 11. Врачи */
+.doc__more { font-size: var(--text-body-sm); }
+.docs-more { margin-top: var(--s-9); }
+
+/* Блок 12. Первый визит */
+.entry__title { margin-top: var(--s-4); }
+.entry__lead { margin-top: var(--s-6); }
+.entry__actions {
+  margin-top: var(--s-9);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-7);
+  align-items: center;
+}
+.entry__list { margin: var(--s-6) 0 0; }
+.contact-row--last { border-bottom: 0; }
+
+/* Блок 13. Отзывы. figure и blockquote несут отступы из стилей браузера */
+.reviews-grid { margin-top: var(--s-11); }
+.review { margin: 0; }
+.review__text { margin: 0; }
+
+/* Блок 14. Вопросы */
+.faq-list { margin-top: var(--s-9); max-width: 78ch; }
+
+/* Блоки 15–16. Корпоративным и контакты */
+.strip--corp { margin-bottom: var(--s-13); }
+.strip__note { margin-top: var(--s-3); }
+.contacts-grid { margin-top: var(--s-11); }
+
+/* Блок 17. Лид-магнит */
+.leadmag-grid { align-items: center; }
+.leadmag__title { margin-top: var(--s-4); }
+.leadmag__note { margin-top: var(--s-4); color: var(--text-secondary); max-width: 62ch; }
+.leadmag__submit { width: 100%; }

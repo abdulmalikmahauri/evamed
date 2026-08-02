@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="EVAMED">
+  <rect width="64" height="64" rx="8" fill="#2C3947"/>
+  <!-- E из леттеринга: тот же монолинейный строй, что в логотипе -->
+  <g fill="none" stroke="#E9E5DB" stroke-width="6" stroke-linecap="square">
+    <path d="M22 18 V44 M22 18 H43 M22 31 H38 M22 44 H43"/>
+  </g>
+  <rect x="22" y="50" width="21" height="2.5" fill="#A8875A"/>
+</svg>

@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Вариант C — «Светлая страница, тёмный жетон» (ТЗ 10.7.3)
+   Страница светлая и медицинская; внутрь первого экрана врезан тёмный жетон
+   с оффером, ценой и шкалой. Тёмное = данные и продукт, светлое = клиника.
+   Жетон наезжает на следующую секцию — настоящая глубина без теней-заглушек.
+   ========================================================================== */
+
+.heroC {
+  position: relative;
+  background: var(--white);
+  padding-block: var(--s-11) 0;
+  /* насколько жетон заходит на следующую секцию */
+  --chip-overlap: 0px;
+}
+@media (min-width: 1024px) { .heroC { --chip-overlap: 112px; } }
+
+.heroC__grid {
+  display: grid;
+  gap: var(--s-9);
+  align-items: start;
+}
+
+.heroC__copy { padding-top: var(--s-4); }
+.heroC__title { max-width: 16ch; margin-top: var(--s-5); }
+.heroC__copy .lead { margin-top: var(--s-6); }
+.heroC__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-7);
+  margin-top: var(--s-9);
+}
+
+/* ---------- Тёмный жетон ---------- */
+.chip {
+  position: relative;
+  background: var(--navy);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  isolation: isolate;
+}
+.chip__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right, #3A4B5C 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(to bottom, #3A4B5C 0 1px, transparent 1px 56px);
+  opacity: .38;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.3) 60%, transparent 95%);
+          mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.3) 60%, transparent 95%);
+}
+.chip__inner { position: relative; padding: var(--s-8); }
+
+.chip__params {
+  list-style: none;
+  margin: var(--s-7) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5) var(--s-4);
+  border-top: 1px solid rgba(221, 225, 229, 0.16);
+  border-bottom: 1px solid rgba(221, 225, 229, 0.16);
+  padding-block: var(--s-6);
+}
+@media (min-width: 420px) {
+  .chip__params { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.chip__params li { display: flex; flex-direction: column; gap: var(--s-2); min-width: 0; }
+.chip__params .num {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.chip__params li > span:last-child {
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  line-height: 1.3;
+}
+
+.chip__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  margin-top: var(--s-7);
+  flex-wrap: wrap;
+}
+.chip__price-from,
+.chip__price-per { font-size: var(--text-body-sm); color: var(--smoke); }
+.chip__price .price {
+  font-size: var(--text-price);
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.chip__price-note {
+  margin-top: var(--s-4);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+  color: var(--smoke);
+  max-width: 42ch;
+}
+
+.heroC__facts {
+  margin-top: var(--s-11);
+  border-top-color: var(--rule);
+}
+
+/* ---------- Блок 2: факты исполнимости, без придуманных цифр ---------- */
+.facts-grid { gap: var(--s-8) var(--s-8); }
+.fact { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
+.fact__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  color: var(--text-display);
+  margin: var(--s-4) 0 var(--s-3);
+}
+.fact__title .num { font-family: var(--font-body); font-weight: 500; }
+.fact__note { font-size: var(--text-body-sm); line-height: 1.6; color: var(--text-secondary); }
+
+/* ---------- Наезд жетона на следующую секцию ---------- */
+.next-section {
+  position: relative;
+  background: var(--grey-light);
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Раскладка 7/5 с вертикальным сдвигом ---------- */
+@media (min-width: 1024px) {
+  .heroC { padding-block: var(--s-13) var(--s-12); }
+
+  .heroC__grid {
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: auto auto;
+    gap: 0 var(--s-11);
+    align-items: start;
+    /* без раздувания на высоких окнах */
+    min-height: min(58vh, 560px);
+  }
+  .heroC__copy { grid-column: 1; grid-row: 1; align-self: center; }
+
+  /* Полоса фактов — только в левых 7 колонках, чтобы не мешать наезду жетона */
+  .heroC__facts { grid-column: 1; grid-row: 2; margin-top: var(--s-12); }
+
+  /* Жетон занимает оба ряда и сдвигается вниз через transform: так он
+     пересекает границу секции, не влияя на поток и не мешая появлению */
+  .chip-slot {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    margin-top: var(--s-9);
+    transform: translateY(var(--chip-overlap));
+    position: relative;
+    z-index: 2;
+  }
+  .chip__inner { padding: var(--s-9); }
+
+  /* Следующая секция освобождает место под наехавший жетон */
+  .next-section { padding-top: calc(var(--section-rhythm) + var(--chip-overlap)); }
+}

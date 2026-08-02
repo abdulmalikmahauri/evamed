@@ -1,0 +1,220 @@
+/* ==========================================================================
+   Внутренние страницы — регистр варианта B «Кремовый кабинет» (ТЗ 10.7.4).
+   Кремовая плашка, одна золотая вертикальная линия, редакционный воздух.
+   Применяется к услугам, врачам, ценам, документам, материалам.
+   ========================================================================== */
+
+/* ---------- Хлебные крошки ---------- */
+.crumbs { padding-block: var(--s-6) 0; }
+.crumbs ol {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3);
+  list-style: none; margin: 0; padding: 0;
+  font-size: var(--text-caption); color: var(--text-muted);
+}
+.crumbs a { color: var(--text-secondary); text-decoration: none; }
+.crumbs a:hover { color: var(--accent-text); }
+.crumbs a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.crumbs li + li::before { content: "/"; margin-right: var(--s-3); color: var(--steel-line); }
+
+/* ---------- Шапка страницы: кремовая плашка + золотой шов ---------- */
+.page-head {
+  position: relative;
+  padding-block: var(--s-11) var(--s-12);
+  overflow: hidden;
+}
+/* Плашка и шов привязаны к колонке контейнера, а не к краю окна: иначе
+   на широких экранах золотая линия проходит сквозь текст паспорта.
+   Правая колонка сетки 7/5 начинается на 7/12 ширины контейнера. */
+.page-head__plate {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  left: calc(50% - var(--container) / 2 + var(--container) * 7 / 12);
+  background: var(--sand);
+  display: none;
+}
+.page-head__seam {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: calc(50% - var(--container) / 2 + var(--container) * 7 / 12);
+  width: 1px;
+  background: var(--bronze-line);
+  display: none;
+}
+@media (min-width: 1440px) {
+  .page-head__plate,
+  .page-head__seam { left: calc(50% - var(--container-wide) / 2 + var(--container-wide) * 7 / 12); }
+}
+@media (min-width: 1024px) {
+  .page-head__plate, .page-head__seam { display: block; }
+  .page-head { padding-block: var(--s-12) var(--s-13); }
+}
+.page-head__inner { position: relative; display: grid; gap: var(--s-9); }
+@media (min-width: 1024px) {
+  .page-head__inner { grid-template-columns: 7fr 5fr; gap: var(--s-11); align-items: start; }
+}
+.page-head h1 { margin-top: var(--s-5); max-width: 18ch; }
+.page-head .lead { margin-top: var(--s-6); }
+
+/* Сводка параметров справа — «паспорт» страницы */
+.passport { }
+.passport__row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-5);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid rgba(40, 52, 60, .18);
+}
+.passport__row:first-child { border-top: 1px solid rgba(40, 52, 60, .18); }
+.passport__key { font-size: var(--text-caption); color: var(--text-secondary); }
+.passport__val { font-weight: 600; color: var(--text-display); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* ---------- Двухколоночный контент 8/4 с липкой панелью ---------- */
+.page-body { display: grid; gap: var(--s-11); }
+@media (min-width: 1024px) {
+  .page-body { grid-template-columns: 8fr 4fr; gap: var(--s-13); align-items: start; }
+  .page-aside { position: sticky; top: calc(72px + var(--s-7)); }
+}
+
+.block + .block { margin-top: var(--s-12); }
+.block__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  color: var(--text-display);
+  margin: 0 0 var(--s-5);
+}
+.block p + p { margin-top: var(--s-5); }
+.block ul { margin: var(--s-5) 0 0; padding-left: 0; list-style: none; display: grid; gap: var(--s-4); }
+.block ul li { display: flex; gap: var(--s-4); }
+.block ul li::before { content: ""; flex: 0 0 8px; height: 1px; background: var(--rule-strong); margin-top: .8em; }
+
+/* ---------- Правовой дисклеймер ---------- */
+.disclaimer {
+  margin-top: var(--s-11);
+  padding: var(--s-7);
+  background: var(--surface-recessed);
+  border-left: 2px solid var(--accent-line);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.disclaimer p { font-size: var(--text-body-sm); line-height: 1.6; color: var(--text-secondary); }
+.disclaimer p + p { margin-top: var(--s-4); }
+.disclaimer b { color: var(--text-display); }
+
+/* ---------- Карточка записи в боковой панели ---------- */
+.booking { padding: var(--s-7); }
+.booking__price {
+  display: flex; align-items: baseline; gap: .4em; flex-wrap: wrap;
+  margin: var(--s-5) 0 var(--s-3);
+}
+.booking__price .price {
+  font-size: var(--text-price); font-weight: 600; color: var(--text-display);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.booking__meta { font-size: var(--text-caption); color: var(--text-muted); }
+
+/* ---------- Карточка врача: состояние без фото ----------
+   Монограмма дисплейной антиквой, а не серый силуэт (ТЗ 10.6.8). */
+.monogram {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 260px;
+  display: grid;
+  place-items: center;
+  background: var(--sand);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 2rem + 3vw, 4rem);
+  color: var(--navy);
+  letter-spacing: .02em;
+}
+
+/* ---------- Список услуг врача / смежных услуг ---------- */
+.linklist { border-top: 1px solid var(--rule); }
+.linklist a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-5);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text); text-decoration: none;
+  transition: color var(--d-fast) var(--ease-out);
+}
+.linklist a:hover { color: var(--accent-text); }
+.linklist a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.linklist__name { font-weight: 500; }
+.linklist__price { font-size: var(--text-table); color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+
+/* ==========================================================================
+   Вынесено из инлайновых стилей макетов внутренних страниц.
+   ========================================================================== */
+
+/* Предупреждение о противопоказаниях на лендинге программы.
+   Это не декоративная плашка: дисклеймер обязателен по требованиям
+   к рекламе медицинских услуг, поэтому он заметен, а не спрятан в подвал. */
+.warning-band { background: var(--navy); padding-block: var(--s-11); }
+.warning-band__inner {
+  display: grid;
+  gap: var(--s-6);
+  border-top: 2px solid var(--bronze);
+  padding-top: var(--s-8);
+}
+@media (min-width: 768px) {
+  .warning-band__inner {
+    grid-template-columns: auto 1fr;
+    gap: var(--s-9);
+    align-items: start;
+  }
+}
+.warning-band__mark {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--bronze);
+  border-radius: var(--r-sm);
+  font-size: 1.75rem;
+  color: var(--accent-text);
+}
+.warning-band__text {
+  font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--text);
+  max-width: 60ch;
+}
+.warning-band__sub {
+  margin-top: var(--s-5);
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 70ch;
+}
+.lp-form { max-width: 520px; }
+
+/* Телефон администратора на странице ошибки — крупная ссылка,
+   браузерное подчёркивание здесь спорит с табличными цифрами */
+a.metric-value { text-decoration: none; }
+a.metric-value:hover { color: var(--accent-text); }
+a.metric-value:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Страницы второй очереди: цены, направления, о клинике, контакты, врачи,
+   правовой раздел. Вынесено из инлайновых стилей при сборке страниц.
+   ========================================================================== */
+
+/* Прайс. Минимальная ширина переводит узкий экран на прокрутку внутри
+   .table-scroll: без неё название услуги ломается на три строки, а золотое
+   подчёркивание ссылки остаётся только под последней из них. */
+.price-table { min-width: 560px; }
+.price-table th:first-child,
+.price-table td:first-child { width: 46%; }
+.price-table tbody td { vertical-align: baseline; }
+
+/* Кнопка во всю ширину карточки или боковой колонки */
+.btn--block { width: 100%; }
+.booking__cta { width: 100%; margin-top: var(--s-6); }
+
+/* Завершающий элемент секции */
+.sec-foot { margin-top: var(--s-11); }
+.block__note { margin-top: var(--s-6); }
